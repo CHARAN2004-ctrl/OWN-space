@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OWN Space— Storage, simplified</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --ink:#17241d; --forest:#1d5b43; --lime:#dff56d; --cream:#f7f6ef; --line:#b9dba7; --sky:#dff4ee; --coral:#ff9c7d; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--cream); font-family:"DM Sans",sans-serif; overflow-x:hidden; }
+    .hero { min-height:750px; position:relative; overflow:hidden; padding:24px clamp(22px,6vw,90px) 76px; isolation:isolate; }
+    .hero::before { content:""; position:absolute; z-index:-2; width:75vw; height:75vw; min-width:680px; min-height:680px; border:1.5px solid var(--line); border-radius:48% 52% 54% 46% / 45% 49% 51% 55%; right:-17vw; top:-40vw; transform:rotate(-18deg); }
+    .hero::after { content:""; position:absolute; z-index:-2; width:83vw; height:47vw; min-width:800px; border:1.5px solid var(--line); border-radius:50%; left:-42vw; bottom:-38vw; transform:rotate(9deg); }
+    nav { display:flex; justify-content:space-between; align-items:center; max-width:1240px; margin:auto; }
+    .brand { color:var(--forest); font-size:22px; font-weight:700; text-decoration:none; letter-spacing:-1px; display:flex; gap:8px; align-items:center; }
+    .brand-mark { width:28px; height:21px; border-radius:14px 14px 8px 8px; background:var(--forest); position:relative; }
+    .brand-mark:after { content:""; position:absolute; width:13px; height:8px; background:var(--cream); border-radius:10px 10px 0 0; left:7px; bottom:0; }
+    .links { display:flex; gap:30px; align-items:center; }
+    .links a { text-decoration:none; color:var(--ink); font-size:14px; font-weight:500; }
+    .nav-button,.button { border:0; background:var(--forest); color:white; font:600 14px "DM Sans"; padding:13px 20px; border-radius:999px; cursor:pointer; transition:transform .2s, box-shadow .2s; }
+    .nav-button:hover,.button:hover { transform:translateY(-2px); box-shadow:0 9px 18px #1d5b4330; }
+    .hero-main { max-width:1240px; margin:81px auto 0; display:grid; grid-template-columns:1.02fr .98fr; align-items:center; gap:50px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; color:var(--forest); font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .eyebrow i { display:block; width:8px; height:8px; background:var(--coral); border-radius:50%; }
+    h1 { font:700 clamp(46px,5.8vw,84px)/.97 "Playfair Display",serif; letter-spacing:-.055em; max-width:620px; margin:20px 0 23px; }
+    .lead { font-size:17px; line-height:1.65; max-width:450px; color:#52635a; margin-bottom:30px; }
+    .hero-actions { display:flex; align-items:center; gap:22px; }
+    .button { padding:16px 24px; }
+    .text-link { color:var(--forest); font-weight:700; font-size:14px; text-decoration:none; border-bottom:1px solid currentColor; }
+    .scene { position:relative; height:400px; }
+    .scene-bg { position:absolute; width:360px; height:300px; right:8%; top:38px; border-radius:55% 45% 50% 50%; background:var(--sky); transform:rotate(-6deg); }
+    .cloud { position:absolute; width:238px; height:104px; left:53px; top:126px; background:white; border-radius:80px; box-shadow:0 22px 35px #37655312; animation:float 5s ease-in-out infinite; }
+    .cloud:before,.cloud:after { content:""; position:absolute; background:white; border-radius:50%; }
+    .cloud:before { width:110px; height:110px; left:38px; bottom:23px; }
+    .cloud:after { width:138px; height:138px; right:26px; bottom:11px; }
+    .upload-card { position:absolute; z-index:2; width:213px; padding:18px; right:1%; top:120px; background:#fffdf8; border-radius:18px; box-shadow:0 24px 45px #214b3820; animation:card-bob 5s .6s ease-in-out infinite; }
+    .upload-top { display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:700; }
+    .file-row { display:flex; align-items:center; gap:10px; margin:15px 0 11px; }
+    .file-icon { width:34px; height:38px; background:var(--coral); border-radius:8px; position:relative; }
+    .file-icon:before { content:""; position:absolute; width:10px; height:10px; background:#fffdf8; right:0; top:0; border-radius:0 7px 0 7px; }
+    .file-name { font-size:12px; font-weight:700; } .file-size { font-size:11px; color:#789084; margin-top:3px; }
+    .progress { height:7px; background:#e5eee8; border-radius:20px; overflow:hidden; }.progress span { display:block; height:100%; width:72%; border-radius:20px; background:var(--forest); animation:load 2.5s ease-in-out infinite alternate; }
+    .orb { position:absolute; border-radius:50%; }.orb.one { width:32px; height:32px; background:var(--lime); top:56px; left:35px; animation:orbit 7s linear infinite; }.orb.two { width:16px; height:16px; background:var(--coral); bottom:73px; left:116px; animation:float 3.5s 1s ease-in-out infinite; }.orb.three { width:18px; height:18px; background:var(--forest); bottom:32px; right:35px; animation:float 4s ease-in-out infinite reverse; }
+    .mini-tag { position:absolute; bottom:31px; right:23%; padding:11px 14px; background:var(--lime); border-radius:12px; font-size:12px; font-weight:700; transform:rotate(7deg); animation:card-bob 4s ease-in-out infinite; }
+    .trust { max-width:1240px; margin:8px auto 0; display:flex; align-items:center; gap:20px; color:#66776d; font-size:13px; }.avatars { display:flex; }.avatar { width:28px; height:28px; margin-left:-7px; border:2px solid var(--cream); border-radius:50%; background:#fed9c8; }.avatar:nth-child(2){background:#d3e4f8}.avatar:nth-child(3){background:#d5ebb4}.avatar:nth-child(4){background:#ecd6f2}
+    .features { padding:95px clamp(22px,6vw,90px); background:var(--forest); color:white; position:relative; overflow:hidden; }.features:after { content:""; position:absolute; width:900px; height:500px; border:1px solid #ffffff38; border-radius:50%; right:-430px; top:-300px; }
+    .feature-wrap { position:relative; z-index:1; max-width:1240px; margin:auto; }.section-label { color:var(--lime); font-size:13px; text-transform:uppercase; letter-spacing:.1em; font-weight:700; }.features h2 { font:600 clamp(32px,3.8vw,51px)/1.05 "Playfair Display",serif; letter-spacing:-.04em; max-width:510px; margin:15px 0 47px; }.cards { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }.feature-card { padding:29px; border:1px solid #ffffff27; border-radius:20px; min-height:218px; transition:background .25s, transform .25s; }.feature-card:hover { background:#ffffff12; transform:translateY(-6px); }.feature-icon { width:42px; height:42px; display:grid; place-items:center; background:var(--lime); color:var(--forest); border-radius:13px; font-size:20px; }.feature-card h3 { font-size:19px; margin:25px 0 11px; }.feature-card p { color:#d0e0d6; line-height:1.55; font-size:14px; margin:0; }
+    .footer { padding:28px clamp(22px,6vw,90px); display:flex; max-width:1420px; margin:auto; justify-content:space-between; color:#637269; font-size:13px; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} } @keyframes card-bob { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-10px) rotate(1deg)} } @keyframes orbit { to{transform:rotate(360deg) translateX(32px) rotate(-360deg)} } @keyframes load { from{width:32%} to{width:82%} }
+    @media (max-width:780px) { .links a:not(.nav-button){display:none}.hero {min-height:auto}.hero-main{margin-top:58px;grid-template-columns:1fr;gap:20px}.scene{height:350px;transform:scale(.9);transform-origin:center top}.trust{margin-top:-15px}.cards{grid-template-columns:1fr}.feature-card{min-height:auto}.footer{gap:12px;flex-direction:column}.hero::before{right:-65vw;top:-50vw} }
+    @media (prefers-reduced-motion:reduce) { *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important} }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <nav><a class="brand" href="#top"><span class="brand-mark"></span>Ownspace</a><div class="links"><a href="#features">Features</a><a href="#security">Security</a><a href="#About">About</a><button class="nav-button" onclick="showMessage()">Get Started </button></div></nav>
+      <div class="hero-main" id="top"><div><span class="eyebrow"><i></i> A calmer place for your files</span><h1>Everything you love, safely in the cloud Space.</h1><p class="lead">Keep your work, memories, and every big idea beautifully organized—then reach them from anywhere.</p><div class="hero-actions"><button class="button" onclick="showMessage()">Create your free space</button><a class="text-link" href="#features">See how it works</a></div><p id="message" aria-live="polite" style="color:#1d5b43;font-weight:700;font-size:14px;margin-top:17px"></p></div>
+        <div class="scene" aria-label="Animated cloud file upload illustration"><div class="scene-bg"></div><div class="cloud"></div><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div><div class="upload-card"><div class="upload-top"><span>Uploading</span><span>72%</span></div><div class="file-row"><div class="file-icon"></div><div><div class="file-name">summer-days.zip</div><div class="file-size">84.2 MB of 117 MB</div></div></div><div class="progress"><span></span></div></div><div class="mini-tag">✓ Synced</div></div>
+      </div><div class="trust"><div class="avatars"><span class="avatar"></span><span class="avatar"></span><span class="avatar"></span><span class="avatar"></span></div><span>Trusted by 2 million curious minds and growing.</span></div>
+    </section>
+    <section class="features" id="features"><div class="feature-wrap"><span class="section-label"></span><h2>Storage that keeps up with your Memories.</h2><div class="cards"><article class="feature-card"><div class="feature-icon">↗</div><h3>Dump in Safe</h3><p>Drag, drop, and watch your files settle into a home that makes comfartable.</p></article><article class="feature-card" id="security"><div class="feature-icon">⌁</div><h3>Sharing is Caring</h3><p>Send a link, set permissions, and stay in control of every shared moment.</p></article><article class="feature-card"><div class="feature-icon">✦</div><h3>spot it fast</h3><p>Smart search helps you rediscover the exact thing you need in seconds.</p></article></div></div></section>
+  </main><footer class="footer" id="pricing"><span>© 2026 OWNspace</span><span>Made for the things that matter.</span></footer>
+  <script>function showMessage(){document.getElementById('message').textContent='Your free 15 GB space is ready to create.'}</script>
+</body></html>
